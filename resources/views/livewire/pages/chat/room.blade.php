@@ -17,7 +17,7 @@
                 </div>
             @endif
             {{ $online }}
-            <form wire:submit="EndChat">
+            <form wire:submit="endRoomChat">
                 <button type="submit" class="py-2 px-3 bg-red-600 text-white font-bold text-sm rounded-lg">End
                     Chat</button>
             </form>

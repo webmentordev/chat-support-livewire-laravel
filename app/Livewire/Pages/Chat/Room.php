@@ -46,4 +46,12 @@ class Room extends Component
         $this->reset(['message']);
         $this->dispatch('message.sent', $message->id);
     }
+
+    public function endRoomChat()
+    {
+        $room = RoomModel::where('id', $this->room->id)->first();
+        $room->is_active = false;
+        $room->save();
+        return redirect()->route('home');
+    }
 }
