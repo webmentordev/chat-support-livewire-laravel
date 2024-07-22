@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Pages\Chat;
 
+use App\Events\RoomCreated;
 use App\Models\Message;
 use App\Models\Room;
 use Livewire\Component;
@@ -33,6 +34,8 @@ class Client extends Component
             'user_id' => 0,
             'room_id' => $room->id
         ]);
+        $this->dispatch('room.created', $room->id);
+        broadcast(new RoomCreated($room))->toOthers();
         return $this->redirect('/room/' . $room->id);
     }
 }

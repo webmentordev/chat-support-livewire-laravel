@@ -1,15 +1,28 @@
 <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        {{ __('Dashboard') }}
+        {{ __('Chat Support') }}
     </h2>
 </x-slot>
-<div class="py-12" x-init="Echo.join('online.presence.{{ auth()->id() }}')">
-    <div class="max-w-[99%] mx-auto sm:px-6 lg:px-8 grid grid-cols-12 gap-6">
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg col-span-3 p-4">
-            Users
-        </div>
+<div class="py-12">
+    <div class="max-w-[99%] mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg col-span-9 p-4">
-            Messages
+            @foreach ($rooms as $room)
+                <div class="bg-gray-100 border-gray-200 border p-3 mb-3 rounded-lg relative">
+                    @if ($room->is_active)
+                        <span
+                            class="absolute bg-green-600 text-white font-semibold p-2 px-3 rounded-lg top-3 right-3">Open</span>
+                    @else
+                        <span
+                            class="absolute bg-red-600 text-white font-semibold p-2 px-3 rounded-lg top-3 right-3">Closed</span>
+                    @endif
+                    <ul class="flex flex-col">
+                        <li><b>Name:</b> {{ $room->name }}</li>
+                        <li><b>Email:</b> {{ $room->email }}</li>
+                        <li><b>Subject:</b> {{ $room->subject }}</li>
+                        <li><b>RoomID:</b> {{ $room->id }}</li>
+                    </ul>
+                </div>
+            @endforeach
         </div>
     </div>
 </div>
