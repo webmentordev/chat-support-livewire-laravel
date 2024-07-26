@@ -5,6 +5,19 @@
 </x-slot>
 <div class="py-12">
     <div class="max-w-[99%] mx-auto sm:px-6 lg:px-8">
+        <div x-data="{ enabled: false }" x-init="Echo.channel('room.created')
+            .listen('RoomCreated', async (event) => {
+                if (enabled) {
+                    document.getElementById('audio').play()
+                }
+            })">
+            <audio id="audio" src="{{ asset('sound/message.mp3') }}" allow="autoplay"></audio>
+            <button x-on:click="enabled = !enabled" class="p-2 px-3 rounded-md bg-black text-white mb-3">
+                <span x-show="enabled" x-cloak>🔔 Notifications enabled</span>
+                <span x-show="!enabled" x-cloak>🔔 Enable Notification Sound</span>
+            </button>
+        </div>
+
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg col-span-9 p-4">
             @foreach ($rooms as $room)
                 <div class="bg-gray-100 border-gray-200 border p-3 mb-3 rounded-lg relative">
